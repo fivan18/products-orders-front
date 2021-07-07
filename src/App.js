@@ -7,6 +7,7 @@ import { createStructuredSelector } from 'reselect';
 import HomePage from './pages/homepage';
 import SignIn from './pages/sign-in';
 import NotFound from './pages/not-found';
+import Pagination from './pages/pagination';
 
 import Header from './layout/header';
 
@@ -21,6 +22,7 @@ const App = ({ authenticated, checked }) => (
           && (
           <Switch>
             <PrivateRoute exact path="/" component={HomePage} authenticated={authenticated} />
+            <PrivateRoute path="/pagination/:itemsType" component={Pagination} authenticated={authenticated} />
             <Route path="/signin" component={SignIn} />
             <Route path="/*" component={NotFound} />
           </Switch>
