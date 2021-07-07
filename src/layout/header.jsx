@@ -22,13 +22,13 @@ const Header = ({
           </Link>
 
           <nav className="header__nav">
-            <Link className="header__nav__item" to="/users">
+            <Link className="header__nav__item" to="/pagination/users">
               Users
             </Link>
-            <Link className="header__nav__item" to="/products">
+            <Link className="header__nav__item" to="/pagination/products">
               Products
             </Link>
-            <Link className="header__nav__item" to="/orders">
+            <Link className="header__nav__item" to="/pagination/orders">
               Orders
             </Link>
           </nav>
@@ -67,13 +67,13 @@ const Header = ({
         </div>
       </header>
       <nav className={`header__nav__responsive ${hidden ? 'hidden' : ''}`}>
-        <Link className="header__nav__responsive__item" to="/users">
+        <Link className="header__nav__responsive__item" to="/pagination/users">
           Users
         </Link>
-        <Link className="header__nav__responsive__item" to="/products">
+        <Link className="header__nav__responsive__item" to="/pagination/products">
           Products
         </Link>
-        <Link className="header__nav__responsive__item" to="/orders">
+        <Link className="header__nav__responsive__item" to="/pagination/orders">
           Orders
         </Link>
         {authenticated ? (
