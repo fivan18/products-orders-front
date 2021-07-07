@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { sessionService } from 'redux-react-session';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 import ItemCollection from '../components/item-collection';
 
 import { apiUrl } from '../utilities/utils';
 
-const Pagination = ({ match: { params: { itemsType } }, history }) => {
+import { addItems } from '../redux/item/item.actions';
+
+const Pagination = ({ match: { params: { itemsType } }, history, addItems }) => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -26,6 +29,7 @@ const Pagination = ({ match: { params: { itemsType } }, history }) => {
           .then(({ data: { data } }) => {
             if (mounted) {
               setItems(data);
+              addItems(data);
             }
           })
           .catch(() => {
@@ -63,6 +67,14 @@ Pagination.propTypes = {
   history: shape({
     push: func,
   }).isRequired,
+  addItems: func.isRequired,
 };
 
-export default withRouter(Pagination);
+const mapDispatchToProps = (dispatch) => ({
+  addItems: (items) => dispatch(addItems(items)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(withRouter(Pagination));
