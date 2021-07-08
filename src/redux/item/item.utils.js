@@ -1,5 +1,4 @@
-export const findItem = (items, key) => items.find(
-  (item) => item.key === key,
-);
+export const getPage = (items, page, perPage) => items.slice(page * perPage,
+  (page * perPage) + perPage);
 
 export const ivancito = 'ivancito';
