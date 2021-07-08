@@ -4,30 +4,43 @@
   list-style: none;
   outline: none;
 
-  & > .active > a{
-    background-color: #47ccde ;
-    border-color: #47ccde ;
-    color: #fff;
-  }
-
-  & > li > a{
-    border: 1px solid #47ccde ;
+  & > li > a {
+    border: 1px solid #47ccde;
     padding: 5px 10px;
     outline: none;
     cursor: pointer;
   }
 
-  & > .active > a, & > .active > span, & > .active > a:hover, & > .active > span:hover, & > .active > a:focus, & > .active > span:focus{
-    background-color: #47ccde ;
+  & > li > a,
+  & > li > span {
+    color: #47ccde;
+  }
+
+  & > .active > a {
+    background-color: #47ccde;
     border-color: #47ccde;
-    outline: none ;
+    color: #fff;
   }
 
-  & > li > a, & > li > span{
-    color: #47ccde
+  & > .active > span {
+    background-color: #47ccde;
+    border-color: #47ccde;
+    outline: none;
   }
 
-  & > li:first-child > a, & > li:first-child > span, & > li:last-child > a, & > li:last-child > span{
-    border-radius: unset
+  & > li:first-child > a,
+  & > li:first-child > span,
+  & > li:last-child > a,
+  & > li:last-child > span {
+    border-radius: unset;
+  }
+
+  & > .active > a:hover,
+  & > .active > span:hover,
+  & > .active > a:focus,
+  & > .active > span:focus {
+    background-color: #47ccde;
+    border-color: #47ccde;
+    outline: none;
   }
 }
