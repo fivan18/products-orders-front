@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import ReactPaginate from 'react-paginate';
-import ItemCollection from '../components/item-collection';
+import UserCollection from '../components/user-collection';
+import ProductCollection from '../components/product-collection';
 
 import { apiUrl } from '../utilities/utils';
 
@@ -57,7 +58,7 @@ const Pagination = ({
 
     // eslint-disable-next-line no-return-assign
     return () => mounted = false;
-  }, []);
+  }, [itemsType]);
 
   const handlePageClick = (element) => {
     const selectedPage = parseInt(element.selected, 10);
@@ -66,8 +67,15 @@ const Pagination = ({
 
   return (
     <div className="">
-      <div>{itemsType}</div>
-      <ItemCollection items={items} itemsType={itemsType} />
+      <h2>{itemsType}</h2>
+      {(() => {
+        switch (itemsType) {
+          case 'users': return (<UserCollection users={items} />);
+          case 'products': return (<ProductCollection products={items} />);
+          case 'orders': return 'orders';
+          default: return null;
+        }
+      })()}
       <ReactPaginate
         previousLabel="prev"
         nextLabel="next"
