@@ -21,7 +21,7 @@ import { selectItems } from '../redux/item/item.selectors';
 import { getPage } from '../redux/item/item.utils';
 
 const Pagination = ({
-  match: { params: { itemsType } }, history, addItems, itemsForPage,
+  match: { params: { itemsType } }, history, addItems, itemsForPage, logout,
 }) => {
   const [items, setItems] = useState([]);
   const [pagesNumber, setPagesNumber] = useState(1);
@@ -50,7 +50,6 @@ const Pagination = ({
           })
           .catch(() => {
             if (mounted) {
-              console.log('pagination');
               logout(history);
             }
           });
@@ -130,6 +129,7 @@ Pagination.propTypes = {
       }),
     }),
   ).isRequired,
+  logout: func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

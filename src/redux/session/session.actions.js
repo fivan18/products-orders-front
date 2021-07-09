@@ -33,7 +33,6 @@ export const login = (username, password, history) => () => axios({
 
 export const logout = (history) => () => sessionService.loadSession()
   .then(({ token }) => {
-    console.log('logout');
     sessionService.deleteSession()
       .then(() => {
         sessionService.deleteUser();

@@ -58,7 +58,6 @@ const Homepage = ({ history, logout }) => {
           })
           .catch(() => {
             if (mounted) {
-              console.log('logout');
               logout(history);
             }
           });
