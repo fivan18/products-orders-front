@@ -33,6 +33,11 @@ export const login = (username, password, history) => () => axios({
 
 export const logout = (history) => () => sessionService.loadSession()
   .then(({ token }) => {
+    console.log('logout');
+    sessionService.deleteSession()
+      .then(() => {
+        sessionService.deleteUser();
+      });
     axios({
       method: 'delete',
       url: `${apiUrl}/logout`,
@@ -41,11 +46,7 @@ export const logout = (history) => () => sessionService.loadSession()
       },
     })
       .then(() => {
-        sessionService.deleteSession()
-          .then(() => {
-            sessionService.deleteUser();
-            history.push('/');
-          });
+        history.push('/');
       })
       .catch(() => {
         history.push('/not-found');

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { sessionService } from 'redux-react-session';
 import axios from 'axios';
 import {
@@ -14,8 +15,9 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 import { apiUrl } from '../utilities/utils';
+import { logout } from '../redux/session/session.actions';
 
-const Homepage = ({ history }) => {
+const Homepage = ({ history, logout }) => {
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -56,7 +58,8 @@ const Homepage = ({ history }) => {
           })
           .catch(() => {
             if (mounted) {
-              history.push('/not-found');
+              console.log('logout');
+              logout(history);
             }
           });
       })
@@ -178,6 +181,14 @@ Homepage.propTypes = {
   history: shape({
     push: func,
   }).isRequired,
+  logout: func.isRequired,
 };
 
-export default withRouter(Homepage);
+const mapDispatchToProps = (dispatch) => ({
+  logout: (history) => dispatch(logout(history)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(withRouter(Homepage));

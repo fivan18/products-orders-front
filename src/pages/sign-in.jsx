@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import FormInput from '../components/form-input';
 import SubmitButton from '../components/submit-button';
@@ -51,10 +51,6 @@ const SignIn = ({ history, login }) => {
           />
           <div>
             <SubmitButton> Sign in </SubmitButton>
-            <small className="sign-in-up__signup">
-              Don&apos;t have an account?&nbsp;
-              <Link to="signup">Sign up</Link>
-            </small>
           </div>
         </form>
       </div>
