@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { sessionService } from 'redux-react-session';
 import axios from 'axios';
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+} from 'recharts';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -16,8 +19,8 @@ const Homepage = ({ history }) => {
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
-  // const [mostSaleProducts, setMostSaleProducts] = useState({});
-  // const [ordersPerMonth, setOrdersPerMonth] = useState({});
+  const [mostSaleProducts, setMostSaleProducts] = useState([]);
+  const [ordersPerMonth, setOrdersPerMonth] = useState([]);
 
   useEffect(() => {
     let mounted = true;
@@ -36,16 +39,19 @@ const Homepage = ({ history }) => {
               users: { data: users },
               products: { data: products },
               orders: { data: orders },
-              // most_sale_products: mostSaleProducst,
-              // orders_per_month: ordersPerMonth,
+              most_sale_products: mostSaleProducst,
+              orders_per_month: ordersPerMonth,
             },
           }) => {
             if (mounted) {
               setUsers(users);
               setProducts(products);
               setOrders(orders);
-              // setMostSaleProducts(mostSaleProducst);
-              // setOrdersPerMonth(ordersPerMonth);
+              setMostSaleProducts(mostSaleProducst);
+              setOrdersPerMonth(ordersPerMonth.map(({ quantity, month, year }) => ({
+                quantity,
+                month: `${month}-${year}`,
+              })));
             }
           })
           .catch(() => {
@@ -70,7 +76,7 @@ const Homepage = ({ history }) => {
         <Row>
           <Col>
             <Jumbotron>
-              <h1>Latest Users</h1>
+              <h2>Latest Users</h2>
               <ListGroup>
                 {users.map(({
                   id,
@@ -84,7 +90,7 @@ const Homepage = ({ history }) => {
           </Col>
           <Col>
             <Jumbotron>
-              <h1>Latest Products</h1>
+              <h2>Latest Products</h2>
               <ListGroup>
                 {products.map(({
                   id,
@@ -97,7 +103,7 @@ const Homepage = ({ history }) => {
           </Col>
           <Col>
             <Jumbotron>
-              <h1>Latest Orders</h1>
+              <h2>Latest Orders</h2>
               <ListGroup>
                 {orders.map(({
                   id,
@@ -110,8 +116,48 @@ const Homepage = ({ history }) => {
           </Col>
         </Row>
         <Row>
-          <Col>1 of 2</Col>
-          <Col>2 of 2</Col>
+          <Col>
+            <h2>Most-Sale Products</h2>
+            <BarChart
+              width={500}
+              height={300}
+              data={mostSaleProducts}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="quantity" fill="#8884d8" />
+            </BarChart>
+          </Col>
+          <Col>
+            <h2>Orders per Month</h2>
+            <BarChart
+              width={500}
+              height={300}
+              data={ordersPerMonth}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="month" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="quantity" fill="#82ca9d" />
+            </BarChart>
+          </Col>
         </Row>
 
       </Container>
