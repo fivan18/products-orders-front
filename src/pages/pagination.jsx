@@ -6,6 +6,8 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import Container from 'react-bootstrap/Container';
+
 import ReactPaginate from 'react-paginate';
 import UserCollection from '../components/user-collection';
 import ProductCollection from '../components/product-collection';
@@ -67,10 +69,11 @@ const Pagination = ({
   };
 
   return (
-    <div className="">
-      { (items.length > 0 && items[0].type === itemsType.slice(0, -1))
+    <div style={{ marginTop: '3rem' }}>
+      <Container>
+        { (items.length > 0 && items[0].type === itemsType.slice(0, -1))
         && (
-        <div>
+        <div className="pagination">
           <h2>{itemsType}</h2>
           {(() => {
             switch (itemsType) {
@@ -95,6 +98,7 @@ const Pagination = ({
           />
         </div>
         )}
+      </Container>
     </div>
   );
 };
