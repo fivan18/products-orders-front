@@ -3,6 +3,7 @@ import { defaultItems } from './item.data';
 
 const INITIAL_STATE = {
   items: defaultItems,
+  inProgress: false,
 };
 
 const itemReducer = (state = INITIAL_STATE, action) => {
@@ -11,6 +12,11 @@ const itemReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         items: action.payload,
+      };
+    case ItemActionTypes.SET_IN_PROGRESS:
+      return {
+        ...state,
+        inProgress: action.payload,
       };
     default:
       return state;

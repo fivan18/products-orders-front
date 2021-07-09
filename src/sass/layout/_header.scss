@@ -14,13 +14,14 @@
     font-size: 3rem;
     font-weight: 600;
     line-height: 3rem;
-    color: #fff;
+    color: #fff !important;
     margin-right: 3rem;
   }
 
   &__nav {
     &__item {
-      color: #fff;
+      margin-right: 1rem;
+      color: #fff !important;
 
       &:hover {
         border-bottom: 1px solid #fff;

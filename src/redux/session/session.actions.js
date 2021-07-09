@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { apiUrl } from '../../utilities/utils';
 
-export const login = (username, password, history) => () => axios({
+export const login = (username, password, history, setInPrigress) => () => axios({
   method: 'post',
   url: `${apiUrl}/login`,
   data: {
@@ -23,16 +23,22 @@ export const login = (username, password, history) => () => axios({
       .then(() => {
         sessionService.saveUser({ username })
           .then(() => {
+            setInPrigress(false);
             history.push('/');
           });
       });
   })
   .catch(() => {
+    setInPrigress(false);
     history.push('/not-found');
   });
 
 export const logout = (history) => () => sessionService.loadSession()
   .then(({ token }) => {
+    sessionService.deleteSession()
+      .then(() => {
+        sessionService.deleteUser();
+      });
     axios({
       method: 'delete',
       url: `${apiUrl}/logout`,
@@ -41,11 +47,7 @@ export const logout = (history) => () => sessionService.loadSession()
       },
     })
       .then(() => {
-        sessionService.deleteSession()
-          .then(() => {
-            sessionService.deleteUser();
-            history.push('/');
-          });
+        history.push('/');
       })
       .catch(() => {
         history.push('/not-found');

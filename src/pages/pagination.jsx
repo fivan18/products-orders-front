@@ -14,13 +14,14 @@ import ProductCollection from '../components/product-collection';
 import OrderCollection from '../components/order-collection';
 
 import { apiUrl } from '../utilities/utils';
+import { logout } from '../redux/session/session.actions';
 
 import { addItems } from '../redux/item/item.actions';
 import { selectItems } from '../redux/item/item.selectors';
 import { getPage } from '../redux/item/item.utils';
 
 const Pagination = ({
-  match: { params: { itemsType } }, history, addItems, itemsForPage,
+  match: { params: { itemsType } }, history, addItems, itemsForPage, logout,
 }) => {
   const [items, setItems] = useState([]);
   const [pagesNumber, setPagesNumber] = useState(1);
@@ -49,7 +50,7 @@ const Pagination = ({
           })
           .catch(() => {
             if (mounted) {
-              history.push('/not-found');
+              logout(history);
             }
           });
       })
@@ -128,6 +129,7 @@ Pagination.propTypes = {
       }),
     }),
   ).isRequired,
+  logout: func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -136,6 +138,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
   addItems: (items) => dispatch(addItems(items)),
+  logout: (history) => dispatch(logout(history)),
 });
 
 export default connect(

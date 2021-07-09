@@ -10,6 +10,7 @@ import NotFound from './pages/not-found';
 import Pagination from './pages/pagination';
 
 import Header from './layout/header';
+import Progress from './layout/progress';
 
 import PrivateRoute from './utilities/private-route';
 
@@ -18,6 +19,7 @@ import { selectChecked, selectAuthenticated } from './redux/session/session.sele
 const App = ({ authenticated, checked }) => (
   <div className="app">
     <Header />
+    <Progress />
     { checked
           && (
           <Switch>
