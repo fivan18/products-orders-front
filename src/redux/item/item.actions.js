@@ -5,4 +5,9 @@ export const addItems = (items) => ({
   payload: items,
 });
 
+export const setInProgress = (inProgress) => ({
+  type: ItemActionTypes.SET_IN_PROGRESS,
+  payload: inProgress,
+});
+
 export const ivancito = 'ivancito';

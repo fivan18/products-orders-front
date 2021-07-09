@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import FormInput from '../components/form-input';
 import SubmitButton from '../components/submit-button';
 import { login } from '../redux/session/session.actions';
+import { setInProgress } from '../redux/item/item.actions';
 
-const SignIn = ({ history, login }) => {
+const SignIn = ({ history, login, setInProgress }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    login(username, password, history);
+
+    setInProgress(true);
+    login(username, password, history, setInProgress);
   };
 
   const handleUsernameChange = (event) => {
@@ -63,10 +66,13 @@ SignIn.propTypes = {
     push: PropTypes.func,
   }).isRequired,
   login: PropTypes.func.isRequired,
+  setInProgress: func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (username, password, history) => dispatch(login(username, password, history)),
+  login: (username, password, history, setInProgress) => dispatch(login(username, password,
+    history, setInProgress)),
+  setInProgress: (inProgress) => dispatch(setInProgress(inProgress)),
 });
 
 export default connect(

@@ -7,4 +7,9 @@ export const selectItems = createSelector(
   (item) => item.items,
 );
 
+export const selectInProgress = createSelector(
+  [selectItem],
+  (item) => item.inProgress,
+);
+
 export const ivancito = 'ivancito';
