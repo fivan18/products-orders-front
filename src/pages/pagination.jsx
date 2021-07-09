@@ -9,6 +9,7 @@ import { createStructuredSelector } from 'reselect';
 import ReactPaginate from 'react-paginate';
 import UserCollection from '../components/user-collection';
 import ProductCollection from '../components/product-collection';
+import OrderCollection from '../components/order-collection';
 
 import { apiUrl } from '../utilities/utils';
 
@@ -67,28 +68,33 @@ const Pagination = ({
 
   return (
     <div className="">
-      <h2>{itemsType}</h2>
-      {(() => {
-        switch (itemsType) {
-          case 'users': return (<UserCollection users={items} />);
-          case 'products': return (<ProductCollection products={items} />);
-          case 'orders': return 'orders';
-          default: return null;
-        }
-      })()}
-      <ReactPaginate
-        previousLabel="prev"
-        nextLabel="next"
-        breakLabel="..."
-        breakClassName="break-me"
-        pageCount={pagesNumber}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={handlePageClick}
-        containerClassName="paginate"
-        subContainerClassName="pages paginate"
-        activeClassName="active"
-      />
+      { (items.length > 0 && items[0].type === itemsType.slice(0, -1))
+        && (
+        <div>
+          <h2>{itemsType}</h2>
+          {(() => {
+            switch (itemsType) {
+              case 'users': return (<UserCollection users={items} />);
+              case 'products': return (<ProductCollection products={items} />);
+              case 'orders': return (<OrderCollection orders={items} />);
+              default: return null;
+            }
+          })()}
+          <ReactPaginate
+            previousLabel="prev"
+            nextLabel="next"
+            breakLabel="..."
+            breakClassName="break-me"
+            pageCount={pagesNumber}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName="paginate"
+            subContainerClassName="pages paginate"
+            activeClassName="active"
+          />
+        </div>
+        )}
     </div>
   );
 };
