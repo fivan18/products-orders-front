@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { sessionService } from 'redux-react-session';
 import axios from 'axios';
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts';
 
 import Container from 'react-bootstrap/Container';
@@ -71,10 +71,10 @@ const Homepage = ({ history }) => {
   }, []);
 
   return (
-    <div>
+    <div style={{ marginTop: '3rem' }}>
       <Container>
         <Row>
-          <Col>
+          <Col lg={4}>
             <Jumbotron>
               <h2>Latest Users</h2>
               <ListGroup>
@@ -88,7 +88,7 @@ const Homepage = ({ history }) => {
               </ListGroup>
             </Jumbotron>
           </Col>
-          <Col>
+          <Col lg={4}>
             <Jumbotron>
               <h2>Latest Products</h2>
               <ListGroup>
@@ -101,7 +101,7 @@ const Homepage = ({ history }) => {
               </ListGroup>
             </Jumbotron>
           </Col>
-          <Col>
+          <Col lg={4}>
             <Jumbotron>
               <h2>Latest Orders</h2>
               <ListGroup>
@@ -116,50 +116,57 @@ const Homepage = ({ history }) => {
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col lg={6}>
             <h2>Most-Sale Products</h2>
-            <BarChart
-              width={500}
-              height={300}
-              data={mostSaleProducts}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="quantity" fill="#8884d8" />
-            </BarChart>
+            <div style={{ height: '30rem' }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  width={500}
+                  height={300}
+                  data={mostSaleProducts}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="quantity" fill="#8884d8" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </Col>
-          <Col>
+          <Col lg={6}>
             <h2>Orders per Month</h2>
-            <BarChart
-              width={500}
-              height={300}
-              data={ordersPerMonth}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="quantity" fill="#82ca9d" />
-            </BarChart>
+            <div style={{ height: '30rem' }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  width={500}
+                  height={300}
+                  data={ordersPerMonth}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="month" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="quantity" fill="#82ca9d" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </Col>
         </Row>
-
       </Container>
     </div>
   );
